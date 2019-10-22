@@ -20,6 +20,12 @@ class ViewController: UIViewController {
 //        dfs(1)//从第一个盒子开始
 //        dfs2(1)
 //        print("总共有\(total/2)种")
+        
+        
+        //走过的路标记为1 障碍为1
+        book2[0][0] = 1
+        dfs3(x: 0, y: 0, step: 0)
+        print("找到小B最短路径为\(min)步")
     }
     
     func bubble(_ list: inout [Int]) -> [Int] {
@@ -109,5 +115,58 @@ class ViewController: UIViewController {
             }
         }
     }
+    
+    // MARK: -
+    // MARK: 迷宫找人
+    /// 小A在(0,0) 小B在(p,q)
+    /// 求在m迷宫中找到小B的最短路径
+    let p = 3
+    let q = 2
+    var min = 999999
+    private lazy var maze: [[Int]] = {
+        var maze = [
+            [0,0,1,0],
+            [0,0,0,0],
+            [0,0,1,0],
+            [0,1,0,0],
+            [0,0,0,1]
+        ]
+        return maze
+    }()
+    private lazy var book2: [[Int]] = {
+        var book2 = [
+            [0,0,0,0],
+            [0,0,0,0],
+            [0,0,0,0],
+            [0,0,0,0],
+            [0,0,0,0]
+        ]
+        return book2
+    }()
+    func dfs3(x: Int, y: Int, step: Int) {
+        //走的方向右下左上
+        let next: [[Int]] = [
+            [0,1],
+            [1,0],
+            [0,-1],
+            [-1,0]
+        ]
+        if x == p && y == q {
+            if step < min { min = step }
+            return
+        }
+        for n in next {
+            let nx = x + n[0]
+            let ny = y + n[1]
+            //判断越界
+            if nx < 0 || ny < 0 || nx > 4 || ny > 3 { continue }
+            if maze[nx][ny] == 0 && book2[nx][ny] == 0 {
+                book2[nx][ny] = 1
+                dfs3(x: nx, y: ny, step: step+1)
+                book2[nx][ny] = 0
+            }
+        }
+    }
+    
 }
 
