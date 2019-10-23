@@ -23,9 +23,11 @@ class ViewController: UIViewController {
         
         
         //走过的路标记为1 障碍为1
-        book2[0][0] = 1
-        dfs3(x: 0, y: 0, step: 0)
-        print("找到小B最短路径为\(min)步")
+//        book2[0][0] = 1
+//        dfs3(x: 0, y: 0, step: 0)
+//        print("找到小B最短路径为\(min)步")
+        
+        Bfs().find()
     }
     
     func bubble(_ list: inout [Int]) -> [Int] {
