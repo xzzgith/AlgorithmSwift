@@ -27,9 +27,55 @@ class ViewController: UIViewController {
 //        dfs3(x: 0, y: 0, step: 0)
 //        print("找到小B最短路径为\(min)步")
         
-        Bfs().find()
+//        Bfs().find()
+//        var result =  twoSum([4, 4, 2,6,11, 15], 8)
+//        print("result = \(result)")
+        
+        if isPalindrome(0) {
+            print("回文")
+        } else {
+            print("不是回文")
+        }
     }
     
+    func twoSum(_ nums: [Int], _ target: Int) -> [Int] {
+        var m = [Int: Int]()
+        for (i, value) in nums.enumerated() {
+            if let a = m[target - value] {
+                if target - value != value { return [i,a] }
+            }
+            m[value] = i
+        }
+        return []
+    }
+    
+    func isPalindrome(_ x: Int) -> Bool {
+        let str = String(x)
+        if str.count==1 { return false }
+        var a = [Character]()
+        var s = Array<Character>(repeating: "s", count: 10)
+        for c in str {
+            a.append(c)
+            print("\(c)")
+        }
+        var top = 0
+        let mid = str.count/2 - 1
+        for i in 0...mid {
+            top += 1
+            s[top] = a[i]
+        }
+        var next = 0
+        if str.count%2==0 {
+            next = mid + 1
+        } else {
+            next = mid + 2
+        }
+        for i in next..<str.count {
+            if a[i] != s[top] { break }
+            top -= 1
+        }
+        return top == 0
+    }
     func bubble(_ list: inout [Int]) -> [Int] {
         for i in 0..<list.count-1 {
             for j in 0..<list.count-1-i {
