@@ -38,6 +38,20 @@ class Solution {
         }
         return head.next
     }
+    
+    
+    func lengthOfLongestSubstring(_ s: String) -> Int {
+        if s.count == 1 { return 1 }
+        var map = [Character: Int]()
+        var left = 0
+        var maxLength = 0
+        for (i,char) in s.enumerated() {
+            if map.keys.contains(char) { left = max(left, map[char]!) }
+            map[char] = i+1
+            maxLength = max(maxLength, i-left+1)
+        }
+        return maxLength
+    }
 }
 class ViewController: UIViewController {
     
@@ -63,11 +77,12 @@ class ViewController: UIViewController {
 //        var result =  twoSum([4, 4, 2,6,11, 15], 8)
 //        print("result = \(result)")
         
-        if isPalindrome(0) {
-            print("回文")
-        } else {
-            print("不是回文")
-        }
+//        if isPalindrome(0) {
+//            print("回文")
+//        } else {
+//            print("不是回文")
+//        }
+        
     }
     
     func twoSum(_ nums: [Int], _ target: Int) -> [Int] {
