@@ -9,7 +9,7 @@
 import UIKit
 
 class LinkedList: NSObject {
-    
+
     /// 双指针 一次遍历
     func removeNthFromEnd2(_ head: ListNode?, _ n: Int) -> ListNode? {
         let dummy = ListNode(0)
@@ -42,5 +42,34 @@ class LinkedList: NSObject {
         }
         first?.next = first?.next?.next
         return dummy.next
+    }
+    
+    // MARK: - 旋转链表
+    func rotateRight(_ head: ListNode?, _ k: Int) -> ListNode? {
+        if k == 0 { return head }
+        
+        var len = 0, realK = 0
+        var node: ListNode?, tail: ListNode?
+        tail = head
+        len = 1
+        while tail?.next != nil {
+            len += 1
+            tail = tail?.next
+        }
+        if len == 1 { return head }
+        
+        realK = k % len
+        if realK == 0 { return head }
+        
+        len = len - realK - 1
+        node = head
+        while len > 0 {
+            len -= 1
+            node = node?.next
+        }
+        let result = node?.next
+        node?.next = nil
+        tail?.next = head
+        return result
     }
 }

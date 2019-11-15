@@ -58,7 +58,16 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-
+        var node1 = ListNode(1)
+        var node2 = ListNode(2)
+        var node3 = ListNode(3)
+        var node4 = ListNode(4)
+        var node5 = ListNode(5)
+        node1.next = node2
+        node2.next = node3
+        node3.next = node4
+        node4.next = node5
+        let ss = LinkedList().rotateRight(node1, 2)
 //        var a = [1,6,3,9,4]
 //        print("\(bubble(&a))")
 //        print("\(quick(&a))")
