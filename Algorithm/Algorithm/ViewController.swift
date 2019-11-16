@@ -65,9 +65,9 @@ class ViewController: UIViewController {
         var node5 = ListNode(5)
         node1.next = node2
         node2.next = node3
-        node3.next = node4
-        node4.next = node5
-        let ss = LinkedList().rotateRight(node1, 2)
+//        node3.next = node4
+//        node4.next = node5
+        let ss = LinkedList().reverseList2(node1)
 //        var a = [1,6,3,9,4]
 //        print("\(bubble(&a))")
 //        print("\(quick(&a))")

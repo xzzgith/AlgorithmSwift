@@ -97,4 +97,42 @@ class LinkedList: NSObject {
         fast?.next = head
         return newHead
     }
+    // MARK: - 反转链表
+    func reverseList(_ head: ListNode?) -> ListNode? {
+        let dummy = ListNode(0)
+        dummy.next = ListNode(head!.val)
+        var node: ListNode? = head
+        var tmp: ListNode?
+        while node != nil {
+            if dummy.next == nil {
+                dummy.next = ListNode(node!.val)
+            } else {
+                tmp = ListNode(node!.val)
+                tmp?.next = dummy.next
+                dummy.next = tmp
+            }
+            node = node?.next
+        }
+        return dummy.next
+    }
+    func reverseList2(_ head: ListNode?) -> ListNode? {
+        var pre: ListNode?
+        var tmp: ListNode?
+        var cur: ListNode? = head
+        while cur != nil {
+            tmp = cur?.next
+            cur?.next = pre
+            pre = cur
+            cur = tmp
+        }
+        return pre
+    }
+    /// 递归
+    func reverseList3(_ head: ListNode?) -> ListNode? {
+        if head?.next == nil { return head }
+        let cur = reverseList3(head?.next)
+        head?.next?.next = head
+        head?.next = nil
+        return cur
+    }
 }
