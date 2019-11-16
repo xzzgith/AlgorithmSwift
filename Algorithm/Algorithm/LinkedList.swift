@@ -46,30 +46,55 @@ class LinkedList: NSObject {
     
     // MARK: - 旋转链表
     func rotateRight(_ head: ListNode?, _ k: Int) -> ListNode? {
-        if k == 0 { return head }
-        
-        var len = 0, realK = 0
-        var node: ListNode?, tail: ListNode?
-        tail = head
-        len = 1
+        guard let head = head else { return nil }
+        if head.next == nil || k == 0 { return head }
+        var len = 1, k = k
+        var node: ListNode?, tail: ListNode? = head
         while tail?.next != nil {
             len += 1
             tail = tail?.next
         }
-        if len == 1 { return head }
-        
-        realK = k % len
-        if realK == 0 { return head }
-        
-        len = len - realK - 1
+        k = k % len
+        if k == 0 { return head }
+
+        len = len - k - 1
         node = head
         while len > 0 {
             len -= 1
             node = node?.next
         }
-        let result = node?.next
+        let newHead = node?.next
         node?.next = nil
         tail?.next = head
-        return result
+        return newHead
+    }
+    
+    /// 双指针
+    func rotateRight2(_ head: ListNode?, _ k: Int) -> ListNode? {
+        guard let head = head else { return nil }
+        if head.next == nil || k == 0 { return head }
+        var len = 0, k = k
+        var node: ListNode? = head
+        while node != nil {
+            len += 1
+            node = node?.next
+        }
+        k = k % len
+        if k == 0 {
+            return head
+        }
+        var fast: ListNode? = head, slow: ListNode? = head
+        while k > 0 {
+            k -= 1
+            fast = fast?.next
+        }
+        while fast?.next != nil {
+            fast = fast?.next
+            slow = slow?.next
+        }
+        let newHead = slow?.next
+        slow?.next = nil
+        fast?.next = head
+        return newHead
     }
 }
