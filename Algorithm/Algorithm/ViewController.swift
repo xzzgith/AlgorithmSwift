@@ -68,6 +68,9 @@ class ViewController: UIViewController {
 //        node3.next = node4
 //        node4.next = node5
         let ss = LinkedList().reverseList2(node1)
+        
+        let re = DynamicProgramming().coinChange2([1,2,5], 11)
+        let d = DynamicProgramming().climbStairs(91)
 //        var a = [1,6,3,9,4]
 //        print("\(bubble(&a))")
 //        print("\(quick(&a))")
