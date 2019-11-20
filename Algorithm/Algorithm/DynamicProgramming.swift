@@ -84,4 +84,35 @@ class DynamicProgramming: NSObject {
         }
         return tmp
     }
+    func permute(_ nums: [Int]) -> [[Int]] {
+        if nums.count <= 1 { return [nums] }
+        var nums = nums
+        nums = nums.sorted()
+        let book = Array(repeating: 0, count: nums.count)
+        var box = Array(repeating: 0, count: nums.count)
+        var result = [[Int]]()
+        
+        dfs(nums, 0, book, &box, &result)
+        return result
+    }
+    
+    func dfs(_ nums: [Int], _ step: Int, _ book: [Int], _ result: inout [Int], _ box: inout [[Int]]) {
+        if step == nums.count {
+            print("\(result)")
+            box.append(result)
+            return;
+        }
+        var book = book
+        for i in 0..<nums.count {
+            let num = nums[i]
+            
+            if book[i] == 0 {
+                if i > 0 && nums[i] == nums[i-1] && book[i-1]==0 { continue }
+                result[step] = num
+                book[i] = 1
+                dfs(nums, step+1, book, &result, &box)
+                book[i] = 0
+            }
+        }
+    }
 }
