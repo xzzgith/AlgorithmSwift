@@ -115,4 +115,19 @@ class DynamicProgramming: NSObject {
             }
         }
     }
+    //123
+    func reverse(_ x: Int) -> Int {
+        var isNeg = false
+        var x = x, r = 0, t = 0
+        if x < 0 {
+            x = -x
+            isNeg = true
+        }
+        while x > 0 {
+            t = x % 10
+            x = x / 10
+            r = r * 10 + t
+        }
+        return isNeg ? -r : r
+    }
 }
