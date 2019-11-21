@@ -130,4 +130,43 @@ class DynamicProgramming: NSObject {
         }
         return isNeg ? -r : r
     }
+    
+    func mergeTwoLists(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {
+        let dummy = ListNode(0)
+        var cur: ListNode? = dummy, l1 = l1, l2 = l2
+        while l1 != nil && l2 != nil {
+            if l1?.val ?? 0 < l2?.val ?? 0 {
+                cur?.next = l1
+                cur = cur?.next
+                l1 = l1?.next
+            } else {
+                cur?.next = l2
+                cur = cur?.next
+                l2 = l2?.next
+            }
+        }
+        cur?.next = (l1 == nil) ? l2 : l1
+        return dummy.next
+    }
+    func mergeTwoLists2(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {
+        if l1?.val ?? 0 < l2?.val ?? 0 {
+            l1?.next = mergeTwoLists2(l1?.next, l2)
+            return l1
+        } else {
+            l2?.next = mergeTwoLists2(l1, l2?.next)
+            return l2
+        }
+    }
+    
+    func removeDuplicates(_ nums: inout [Int]) -> Int {
+        if nums.count < 2 { return nums.count }
+        var idx = 0
+        for i in 1 ..< nums.count {
+            if nums[i] != nums[idx] {
+                idx += 1
+                nums[idx] = nums[i]
+            }
+        }
+        return idx+1
+    }
 }
