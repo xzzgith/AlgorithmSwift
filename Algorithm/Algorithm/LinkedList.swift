@@ -135,4 +135,23 @@ class LinkedList: NSObject {
         head?.next = nil
         return cur
     }
+    
+    /// 反转前n项
+    var success: ListNode?
+    func reverseN(_ head: ListNode?, _ n: Int) -> ListNode? {
+        if n == 1 {
+            success = head?.next
+            return head
+        }
+        let cur = reverseN(head?.next, n-1);
+        head?.next?.next = head
+        head?.next = success
+        return cur
+    }
+    func reverseBetween(_ head: ListNode?, _ m: Int, _ n: Int) -> ListNode? {
+        if m == 1 { return reverseN(head, n) }
+        head?.next = reverseBetween(head?.next, m-1, n-1)
+        return head
+    }
+    
 }
