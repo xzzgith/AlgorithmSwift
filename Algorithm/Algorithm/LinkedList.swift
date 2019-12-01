@@ -153,5 +153,22 @@ class LinkedList: NSObject {
         head?.next = reverseBetween(head?.next, m-1, n-1)
         return head
     }
+    /// 反转部分链表
+    func reverse2Between(_ head: ListNode?, _ m: Int, _ n: Int) -> ListNode? {
+        if m == n { return head }
+        let dummy = ListNode(0)
+        dummy.next = head
+        var pre: ListNode? = dummy, head = head
+        
+        for _ in 1 ..< m { pre = pre?.next }//找到m的前驱结点
+        head = pre?.next
+        for _ in m ..< n {
+            let n = head?.next
+            head?.next = n?.next
+            n?.next = pre?.next
+            pre?.next = n
+        }
+        return dummy.next
+    }
     
 }
