@@ -43,4 +43,21 @@ class Roman2Integer: NSObject {
         }
         return result
     }
+    
+    /// https://leetcode-cn.com/problems/integer-to-roman/
+    /// 贪心策略
+    func intToRoman(_ num: Int) -> String {
+        let ints = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1]
+        let romans = ["M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"]
+        var tmp = num
+        var ans = ""
+        for i in 0 ..< ints.count {
+            while tmp >= ints[i] {
+                tmp -= ints[i]
+                ans += romans[i]
+            }
+        }
+        print("== \(ans)")
+        return ans
+    }
 }
