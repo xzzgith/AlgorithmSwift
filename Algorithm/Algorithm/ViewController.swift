@@ -58,6 +58,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        Roman2Integer().romanToInt("MCMXCIV")
+        return
         var node1 = ListNode(1)
         var node2 = ListNode(2)
         var node3 = ListNode(3)
