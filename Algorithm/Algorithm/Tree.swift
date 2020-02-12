@@ -23,6 +23,51 @@ public class TreeNode {
 
 
 class Tree: NSObject {
+    /// 后序遍历
+    func postorderTraversal(_ root: TreeNode?) -> [Int] {
+        var res = [Int]()
+        helper_p(root, &res)
+        
+        
+//        guard let root = root else { return res }
+//        var stack = Stack<TreeNode>()
+//        var t = root
+//        while t.left != nil || t.right != nil {
+//            if let r = t.right {
+//                stack.push(r)
+//            }
+//            if let l = t.left {
+//                stack.push(l)
+//            }
+//            t = stack.peek()!
+//        }
+//        while !stack.isEmpty() {
+//            let node = stack.pop()!
+//            res.append(node.val)
+//        }
+//
+        return res
+    }
+    func helper_p(_ node: TreeNode?, _ res: inout [Int]) {
+        guard let node = node else { return }
+        helper_p(node.left, &res)
+        helper_p(node.right, &res)
+        res.append(node.val)
+    }
+    
+    
+    /// 中序
+    func inorderTraversal(_ root: TreeNode?) -> [Int] {
+        var res = [Int]()
+        helper_in(root, &res)
+        return res
+    }
+    func helper_in(_ node: TreeNode?, _ res: inout [Int]) {
+        guard let node = node else { return }
+        helper_in(node.left, &res)
+        res.append(node.val)
+        helper_in(node.right, &res)
+    }
     
     /// 先序遍历
     func preorderTraversal(_ root: TreeNode?) -> [Int] {
@@ -64,6 +109,10 @@ struct Stack<T> {
     
     mutating func push(_ element: T) {
         self.elements.append(element)
+    }
+    
+    func peek() -> T? {
+        return self.elements.last
     }
     
     func isEmpty() -> Bool {
