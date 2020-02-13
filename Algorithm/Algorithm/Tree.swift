@@ -73,21 +73,21 @@ class Tree: NSObject {
     func preorderTraversal(_ root: TreeNode?) -> [Int] {
         var res = [Int]()
         //递归
-        helper(root, &res)
+//        helper(root, &res)
         //迭代
-//        guard let root = root else { return res }
-//        var stack = Stack<TreeNode>()
-//        stack.push(root)
-//        while !stack.isEmpty() {
-//            let t = stack.pop()!
-//            res.append(t.val)
-//            if let r = t.right {
-//                stack.push(r)
-//            }
-//            if let l = t.left {
-//                stack.push(l)
-//            }
-//        }
+        guard let root = root else { return res }
+        var stack = Stack<TreeNode>()
+        stack.push(root)
+        while !stack.isEmpty() {
+            let t = stack.pop()!
+            res.append(t.val)
+            if let r = t.right {
+                stack.push(r)
+            }
+            if let l = t.left {
+                stack.push(l)
+            }
+        }
         return res
     }
     func helper(_ node: TreeNode?, _ res: inout [Int]) {
@@ -95,6 +95,20 @@ class Tree: NSObject {
         res.append(node.val)
         helper(node.left, &res)
         helper(node.right, &res)
+    }
+    
+    
+    
+    /// https://leetcode-cn.com/problems/same-tree/
+    func isSameTree(_ p: TreeNode?, _ q: TreeNode?) -> Bool {
+        if p == nil && q == nil {
+            return true
+        }
+        if p?.val == q?.val && q != nil && p != nil {
+            return isSameTree(p?.left, q?.left) && isSameTree(p?.right, q?.right)
+        } else {
+            return false
+        }
     }
 }
 
