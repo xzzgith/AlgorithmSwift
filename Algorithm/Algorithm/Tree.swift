@@ -111,7 +111,7 @@ class Tree: NSObject {
         }
     }
     
-    /// 对称二叉树
+    /// 对称二叉树 也可以用队列进行迭代
     /// https://leetcode-cn.com/problems/symmetric-tree/
     func isSymmetric(_ root: TreeNode?) -> Bool {
         guard let root = root else {
@@ -131,6 +131,35 @@ class Tree: NSObject {
         } else {
             return false
         }
+    }
+    
+    /// 最大深度
+    /// https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/
+    func maxDepth(_ root: TreeNode?) -> Int {
+//        guard let root = root else {
+//            return 0
+//        }
+//        return max(maxDepth(root.left), maxDepth(root.right)) + 1
+        guard let root = root else {
+            return 0
+        }
+        var queue: [TreeNode] = [root]
+        var num = 0
+        while !queue.isEmpty {
+            let n = queue.count
+            for _ in 0 ..< n {
+                let temp = queue.first!
+                if temp.left != nil {
+                    queue.append(temp.left!)
+                }
+                if temp.right != nil {
+                    queue.append(temp.right!)
+                }
+                queue.remove(at: 0)
+            }
+            num += 1
+        }
+        return num
     }
 }
 
