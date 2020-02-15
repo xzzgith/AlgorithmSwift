@@ -110,6 +110,28 @@ class Tree: NSObject {
             return false
         }
     }
+    
+    /// 对称二叉树
+    /// https://leetcode-cn.com/problems/symmetric-tree/
+    func isSymmetric(_ root: TreeNode?) -> Bool {
+        guard let root = root else {
+            return true
+        }
+        return isSy(root.left, root.right)
+    }
+    func isSy(_ left: TreeNode?, _ right: TreeNode?) -> Bool {
+        if left == nil && right == nil {
+            return true
+        }
+        if left == nil || right == nil {
+            return false
+        }
+        if left!.val == right!.val {
+            return isSy(left?.left, right?.right) && isSy(left?.right, right?.left)
+        } else {
+            return false
+        }
+    }
 }
 
 struct Stack<T> {
