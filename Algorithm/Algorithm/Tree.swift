@@ -161,6 +161,33 @@ class Tree: NSObject {
         }
         return num
     }
+    
+    /// 翻转二叉树
+    /// https://leetcode-cn.com/problems/invert-binary-tree/
+    func invertTree(_ root: TreeNode?) -> TreeNode? {
+//        guard let root = root else {
+//            return nil
+//        }
+//        let left = invertTree(root.left)
+//        let right = invertTree(root.right)
+//        root.left = right
+//        root.right = left
+//        return root
+        guard let root = root else {
+            return nil
+        }
+        var queue: [TreeNode] = [root]
+        while !queue.isEmpty {
+            let node = queue.first
+            queue.remove(at: 0)
+            let t = node?.left
+            node?.left = node?.right
+            node?.right = t
+            if node?.left != nil { queue.append(node!.left!) }
+            if node?.right != nil { queue.append(node!.right!) }
+        }
+        return root
+    }
 }
 
 struct Stack<T> {
