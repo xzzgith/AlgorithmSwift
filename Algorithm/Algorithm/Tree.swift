@@ -188,6 +188,34 @@ class Tree: NSObject {
         }
         return root
     }
+
+    // MARK: - 层次遍历
+    /// https://leetcode-cn.com/problems/binary-tree-level-order-traversal-ii/
+    func levelOrderBottom(_ root: TreeNode?) -> [[Int]] {
+        guard let root = root else {
+            return []
+        }
+        var queue = [root]
+        var ans = [[Int]]()
+        while !queue.isEmpty {
+            let size = queue.count
+            var tArr = [Int]()
+            for _ in 0 ..< size {
+                let t = queue.first!
+                tArr.append(t.val)
+                if t.left != nil {
+                    queue.append(t.left!)
+                }
+                if t.right != nil {
+                    queue.append(t.right!)
+                }
+                queue.remove(at: 0)
+            }
+            ans.insert(tArr, at: 0)
+            //ans.append(tArr)
+        }
+        return ans
+    }
 }
 
 struct Stack<T> {
