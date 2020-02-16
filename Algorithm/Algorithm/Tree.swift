@@ -237,6 +237,30 @@ class Tree: NSObject {
         if right == -1 { return -1 }
         return abs(left-right) < 2 ? max(depth(root.left), depth(root.right)) + 1 : -1
     }
+    
+    // MARK: - 二叉树最小深度
+    /// https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/
+    func minDepth(_ root: TreeNode?) -> Int {
+        guard let root = root else { return 0 }
+        var depth = 0
+        var queue = [root]
+        while !queue.isEmpty {
+            depth += 1
+            let size = queue.count
+            for _ in 0 ..< size {
+                let t = queue.first!
+                if t.left == nil && t.right == nil { return depth }
+                if t.left != nil {
+                    queue.append(t.left!)
+                }
+                if t.right != nil {
+                    queue.append(t.right!)
+                }
+                queue.remove(at: 0)
+            }
+        }
+        return depth
+    }
 }
 
 struct Stack<T> {
