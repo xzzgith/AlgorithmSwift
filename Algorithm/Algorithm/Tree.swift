@@ -133,7 +133,7 @@ class Tree: NSObject {
         }
     }
     
-    /// 最大深度
+    // MARK: - 最大深度
     /// https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/
     func maxDepth(_ root: TreeNode?) -> Int {
 //        guard let root = root else {
@@ -162,7 +162,7 @@ class Tree: NSObject {
         return num
     }
     
-    /// 翻转二叉树
+    // MARK: - 翻转二叉树
     /// https://leetcode-cn.com/problems/invert-binary-tree/
     func invertTree(_ root: TreeNode?) -> TreeNode? {
 //        guard let root = root else {
@@ -215,6 +215,27 @@ class Tree: NSObject {
             //ans.append(tArr)
         }
         return ans
+    }
+    // MARK: - 平衡二叉树
+    /*
+     平衡二叉树 这道题思想是
+     1.当前节点 的左孩子 和右孩子的高度不超过1
+     2.左孩子是平衡的
+     3.又孩子是平衡的
+     */
+    /// https://leetcode-cn.com/problems/balanced-binary-tree/
+    func isBalanced(_ root: TreeNode?) -> Bool {
+        return depth(root) != -1
+    }
+    func depth(_ root: TreeNode?) -> Int {
+        guard let root = root else {
+            return 0
+        }
+        let left = depth(root.left)
+        if left == -1 { return -1 }
+        let right = depth(root.right)
+        if right == -1 { return -1 }
+        return abs(left-right) < 2 ? max(depth(root.left), depth(root.right)) + 1 : -1
     }
 }
 
