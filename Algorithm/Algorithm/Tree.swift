@@ -261,6 +261,21 @@ class Tree: NSObject {
         }
         return depth
     }
+    
+    // MARK: 路径总和
+    /// https://leetcode-cn.com/problems/path-sum/
+    func hasPathSum(_ root: TreeNode?, _ sum: Int) -> Bool {
+        guard let root = root else {
+            return false
+        }
+        var sum = sum
+        sum -= root.val
+        if root.left == nil && root.right == nil {
+            return sum == 0
+        } else {
+            return hasPathSum(root.left, sum) || hasPathSum(root.right, sum)
+        }
+    }
 }
 
 struct Stack<T> {
