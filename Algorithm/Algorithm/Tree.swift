@@ -276,6 +276,42 @@ class Tree: NSObject {
             return hasPathSum(root.left, sum) || hasPathSum(root.right, sum)
         }
     }
+    
+    // MARK: 将有序数组转换为二叉搜索树
+    /// https://leetcode-cn.com/problems/convert-sorted-array-to-binary-search-tree/
+    func sortedArrayToBST(_ nums: [Int]) -> TreeNode? {
+        return sortedArrayToBSTHelper(nums, 0, nums.count-1)
+    }
+    func sortedArrayToBSTHelper(_ nums: [Int], _ left: Int, _ right: Int) -> TreeNode? {
+        if left > right { return nil }
+        if left == right { return TreeNode(nums[left]) }
+        let mid = (left + right)/2
+        let root = TreeNode(nums[mid])
+        root.left = sortedArrayToBSTHelper(nums, 0, mid-1)
+        root.right = sortedArrayToBSTHelper(nums, mid+1, right)
+        return root
+    }
+    
+    // MARK: 二叉树的所有路径
+    /// https://leetcode-cn.com/problems/binary-tree-paths/
+    func binaryTreePaths(_ root: TreeNode?) -> [String] {
+        var res = [String]()
+        binaryTreePathsHelper(root, "", &res)
+        return res
+    }
+    func binaryTreePathsHelper(_ root: TreeNode?, _ str: String, _ res: inout [String]) {
+        guard let root = root else {
+            return
+        }
+        var str = str
+        str = str + "\(root.val)"
+        if root.left == nil && root.right == nil {
+            res.append(str)
+        } else {
+            binaryTreePathsHelper(root.left, str + "->", &res)
+            binaryTreePathsHelper(root.right, str + "->", &res)
+        }
+    }
 }
 
 struct Stack<T> {
