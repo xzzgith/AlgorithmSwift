@@ -312,6 +312,17 @@ class Tree: NSObject {
             binaryTreePathsHelper(root.right, str + "->", &res)
         }
     }
+    
+    // MARK: 验证二叉搜索树
+    /// https://leetcode-cn.com/problems/validate-binary-search-tree/
+    func isValidBST(_ root: TreeNode?) -> Bool {
+        return bstHelper(root, Int.min, Int.max)
+    }
+    func bstHelper(_ root: TreeNode?, _ min: Int, _ max: Int) -> Bool {
+        guard let root = root else { return true }
+        if root.val >= max || root.val <= min { return false }
+        return bstHelper(root.left, min, root.val) && bstHelper(root.right, root.val, max)
+    }
 }
 
 struct Stack<T> {
