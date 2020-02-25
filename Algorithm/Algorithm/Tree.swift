@@ -323,6 +323,28 @@ class Tree: NSObject {
         if root.val >= max || root.val <= min { return false }
         return bstHelper(root.left, min, root.val) && bstHelper(root.right, root.val, max)
     }
+    
+    // MARK: 从前序与中序遍历序列构造二叉树
+    /// https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
+    func buildTree(_ preorder: [Int], _ inorder: [Int]) -> TreeNode? {
+        if inorder.count == 0 {
+            return nil
+        }
+        let root = TreeNode(preorder[0])
+        let rootIdx = inorder.firstIndex(of: preorder[0])!
+        let leftCount = rootIdx
+        
+        let leftPre = Array(preorder[1 ..< 1+leftCount])
+        let leftInorder = Array(inorder[0 ..< rootIdx])
+        
+        let rightPre = Array(preorder[1+leftCount ..< preorder.count])
+        let rightInorder = Array(inorder[rootIdx+1 ..< inorder.count])
+        
+        root.left = buildTree(leftPre, leftInorder)
+        root.right = buildTree(rightPre, rightInorder)
+        
+        return root
+    }
 }
 
 struct Stack<T> {
