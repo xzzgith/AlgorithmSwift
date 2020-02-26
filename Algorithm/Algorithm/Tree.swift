@@ -327,6 +327,7 @@ class Tree: NSObject {
     // MARK: 从前序与中序遍历序列构造二叉树
     /// https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
     func buildTree(_ preorder: [Int], _ inorder: [Int]) -> TreeNode? {
+        /*
         if inorder.count == 0 {
             return nil
         }
@@ -344,7 +345,38 @@ class Tree: NSObject {
         root.right = buildTree(rightPre, rightInorder)
         
         return root
+         */
+        
+        //解法2
+        _preorder = preorder
+        _inorder = inorder
+        var idx = 0;
+        for v in inorder {
+            _valMap[v] = idx
+            idx += 1
+        }
+        return buildTreeHelper(0, inorder.count)
     }
+    var _preIdx: Int = 0
+    var _preorder: [Int] = []
+    var _inorder: [Int] = []
+    var _valMap: [Int: Int] = [Int: Int]()
+    func buildTreeHelper(_ left: Int, _ right: Int) -> TreeNode? {
+        if left == right {
+            return nil
+        }
+        
+        let rootVal = _preorder[_preIdx]
+        _preIdx += 1
+        
+        let root = TreeNode(rootVal)
+        let mid = _valMap[rootVal]
+        root.left = buildTreeHelper(left, mid!)
+        root.right = buildTreeHelper(mid!+1, right)
+        
+        return root
+    }
+    
 }
 
 struct Stack<T> {
