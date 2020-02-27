@@ -326,8 +326,11 @@ class Tree: NSObject {
     
     // MARK: 从前序与中序遍历序列构造二叉树
     /// https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
+    // 测试用例
+    // [1,2,4,7,3,5,6,8]
+    // [4,7,2,1,5,3,8,6]
     func buildTree(_ preorder: [Int], _ inorder: [Int]) -> TreeNode? {
-        /*
+        
         if inorder.count == 0 {
             return nil
         }
@@ -345,17 +348,17 @@ class Tree: NSObject {
         root.right = buildTree(rightPre, rightInorder)
         
         return root
-         */
+         
         
         //解法2
-        _preorder = preorder
-        _inorder = inorder
-        var idx = 0;
-        for v in inorder {
-            _valMap[v] = idx
-            idx += 1
-        }
-        return buildTreeHelper(0, inorder.count)
+//        _preorder = preorder
+//        _inorder = inorder
+//        var idx = 0;
+//        for v in inorder {
+//            _valMap[v] = idx
+//            idx += 1
+//        }
+//        return buildTreeHelper(0, inorder.count)
     }
     var _preIdx: Int = 0
     var _preorder: [Int] = []
@@ -373,6 +376,40 @@ class Tree: NSObject {
         let mid = _valMap[rootVal]
         root.left = buildTreeHelper(left, mid!)
         root.right = buildTreeHelper(mid!+1, right)
+        
+        return root
+    }
+    
+    // MARK: 从中序与后序遍历序列构造二叉树
+    /// https://leetcode-cn.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/
+    var _postIdx: Int = 0
+    var _postorder: [Int] = []
+    
+    func buildTree2(_ inorder: [Int], _ postorder: [Int]) -> TreeNode? {
+        _postorder = postorder
+        _inorder = inorder
+        
+        _postIdx = postorder.count - 1
+        var idx = 0
+        for v in inorder {
+            _valMap[v] = idx
+            idx += 1
+        }
+        return buildTree2Helper(0, inorder.count - 1)
+    }
+    func buildTree2Helper(_ left: Int, _ right: Int) -> TreeNode? {
+        if left > right { return nil }
+        
+        let rootVal = _postorder[_postIdx]
+        
+        let root = TreeNode(rootVal)
+        
+        _postIdx -= 1
+        
+        let mid = _valMap[rootVal] ?? 0
+        
+        root.right = buildTree2Helper(mid + 1, right)
+        root.left = buildTree2Helper(left, mid - 1)
         
         return root
     }
