@@ -414,6 +414,33 @@ class Tree: NSObject {
         return root
     }
     
+    // MARK: 路径总和 II
+    ///  https://leetcode-cn.com/problems/path-sum-ii/
+    var _ansArr = [Int]()
+    var _res = [[Int]]()
+    func pathSum(_ root: TreeNode?, _ sum: Int) -> [[Int]] {
+        pathSumHelper(root, sum)
+        return _res
+    }
+    
+    func pathSumHelper(_ root: TreeNode?, _ sum: Int) {
+        guard let root = root else {
+            return
+        }
+        var sum = sum
+        sum -= root.val
+        _ansArr.append(root.val)
+        if root.left == nil && root.right == nil {
+            if sum == 0 {
+                _res.append(_ansArr)
+            }
+        }
+        if root.left != nil { pathSumHelper(root.left, sum) }
+        if root.right != nil { pathSumHelper(root.right, sum) }
+        _ansArr.removeLast()
+    }
+    
+    
 }
 
 struct Stack<T> {
