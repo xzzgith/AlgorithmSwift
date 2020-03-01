@@ -67,4 +67,31 @@ class List: NSObject {
         }
         return r
     }
+    // MARK: 搜索插入位置
+    /// https://leetcode-cn.com/problems/search-insert-position/
+    func searchInsert(_ nums: [Int], _ target: Int) -> Int {
+//        O(n)
+//        var i = 0
+//        for v in nums {
+//            if v >= target {
+//                return i
+//            }
+//            i += 1
+//        }
+//        return nums.count
+        // 二分查找
+        var left = 0
+        var right = nums.count - 1
+        while left <= right {
+            let mid = (left + right) / 2
+            if nums[mid] == target {
+                return mid
+            } else if nums[mid] < target {
+                left = mid + 1
+            } else {
+                right = mid - 1
+            }
+        }
+        return left
+    }
 }
