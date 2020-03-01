@@ -60,6 +60,8 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         Roman2Integer().romanToInt("MCMXCIV")
         Tree().buildTree([3,9,20,15,7], [9,3,15,20,7])
+        var ss = [3,2,2,3]
+        List().removeElement(&ss, 3)
         return
         var node1 = ListNode(1)
         var node2 = ListNode(2)

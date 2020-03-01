@@ -46,4 +46,25 @@ class List: NSObject {
         }
         return res
     }
+    // MARK: 移除元素
+    /// https://leetcode-cn.com/problems/remove-element/
+    func removeElement(_ nums: inout [Int], _ val: Int) -> Int {
+//        var r = nums.count - 1
+//        while r >= 0 {
+//            if nums[r] == val {
+//                nums.remove(at: r)
+//            }
+//            r -= 1
+//        }
+//        return nums.count
+        //[3, 2, 2, 3]
+        var r = 0
+        for v in nums {
+            if v != val {
+                nums[r] = v
+                r += 1
+            }
+        }
+        return r
+    }
 }
