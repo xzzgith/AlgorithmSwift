@@ -94,4 +94,44 @@ class List: NSObject {
         }
         return left
     }
+    // MARK: maxSubArray
+    /// https://leetcode-cn.com/problems/maximum-subarray/
+    func maxSubArray(_ nums: [Int]) -> Int {
+        if nums.count == 1 { return nums[0] }
+        var ans = nums[0]
+        var sum = 0
+        for v in nums {
+            if sum > 0 {
+                sum += v
+            } else {
+                sum = v
+            }
+            if ans < sum {
+                ans = sum
+            }
+        }
+        return ans
+    }
+    
+    // MARK: plusOne
+    /// https://leetcode-cn.com/problems/plus-one/
+    func plusOne(_ digits: [Int]) -> [Int] {
+        var needAdd = true
+        var ans = [Int]()
+        for v in digits.reversed() {
+            var val = v
+            if needAdd {
+                val += 1
+                if val == 10 {
+                    val = 0
+                    needAdd = true
+                } else {
+                    needAdd = false
+                }
+            }
+            ans.insert(val, at: 0)
+        }
+        if needAdd { ans.insert(1, at: 0) }
+        return ans
+    }
 }
