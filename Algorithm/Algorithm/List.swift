@@ -163,4 +163,12 @@ class List: NSObject {
         }
         return m
     }
+    
+    // MARK: - 只出现一次的数字
+    /// https://leetcode-cn.com/problems/single-number/submissions/
+    func singleNumber(_ nums: [Int]) -> Int {
+        var res = 0
+        nums.forEach { res = res ^ $0 }
+        return res
+    }
 }
