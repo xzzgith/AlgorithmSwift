@@ -146,4 +146,21 @@ class List: NSObject {
         }
         return maxProfit
     }
+    
+    // MARK: - container-with-most-water
+    /// https://leetcode-cn.com/problems/container-with-most-water/
+    func maxArea(_ height: [Int]) -> Int {
+        var l = 0
+        var r = height.count - 1
+        var m = 0
+        while l < r {
+            m = max(m, min(height[l], height[r]) * (r-l))
+            if height[l] < height[r] {
+                l += 1
+            } else {
+                r -= 1
+            }
+        }
+        return m
+    }
 }
